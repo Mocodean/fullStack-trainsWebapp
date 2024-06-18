@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Premier League</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="form.css">
+  <script src="proba.js"></script>
+</head>
+
+<body>
+  <div id="content">
+    <h1>Kezdjunk!</h1>
+    <form id="form" action="#">
+      <p>Becenév: <input type="text" id="nickname" name="nickname" required></p>
+      <p>Pénz: <input type="number" id="money" name="money" value="10" required></p>
+      <p>
+        Pénznem:
+        <select id="currency" name="currency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="RON">RON</option>
+          <option value="HUF">HUF</option>
+        </select>
+      </p>
+      <button id="start" type="submit">Start</button>
+    </form>
+  </div>
+
+  <div id="game" style="display: none">
+    <div id="playerInfo">
+      <p id="playerNickname"></p>
+      <p id="playerMoney"></p>
+      <p id="playerCurrency"></p>
+    </div>
+
+    <div id="cards">
+      <div id="card1"></div>
+      <div id="card2"></div>
+      <div id="card3"></div>
+    </div>
+    <div id="button">
+      <button id="vege" type="reset">meguntam</button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Log in' }) %>
+
+    <body>
+        <% if (message) { %>
+            <p>
+                <%= message %>
+            </p>
+            <% } %>
+
+                <section class="vh-100 d-flex justify-content-center align-items-center"
+                    style="background-color: #3d818a;">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <a href="/" class="btn btn-secondary mb-4">Continue as a guest</a>
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <h1 class="text-center mb-4">Log in</h1>
+                                        <form action="/login/form" method="POST"
+                                            enctype="application/x-www-form-urlencoded">
+                                            <div class="form-group">
+                                                <label for="username">Username:</label>
+                                                <input type="text" class="form-control" id="username" name="username"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password:</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100 mt-4">Log in</button>
+                                        </form>
+                                        <p class="mt-3 text-center">
+                                            Don't have an account yet? <a href="/regisztracio">Sign up</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    </body>

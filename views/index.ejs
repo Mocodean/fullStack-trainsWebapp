@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Járatok' }) %>
+
+    <body>
+        <%- include('partials/navbar.ejs') %>
+            <%- include('partials/account.ejs', ) %>
+                <% if (message) { %>
+                    <p>
+                        <%= message %>
+                    </p>
+                    <% } %>
+
+                        <h1>Vonat járatok</h1>
+                        <% if (trains.length) { %>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Vonat száma</th>
+                                        <th>Indulási állomás</th>
+                                        <th>Érkezési állomás</th>
+                                        <th>Indulás ideje</th>
+                                        <th>Érkezés ideje</th>
+                                        <th>Vonat típusa</th>
+                                        <th>Jegy ára</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% trains.forEach(function(train) { %>
+                                        <tr>
+                                            <td>
+                                                <%= train.id %></a>
+                                            </td>
+                                            <td>
+                                                <%= train.honnan %>
+                                            </td>
+                                            <td>
+                                                <%= train.hova %>
+                                            </td>
+                                            <td>
+                                                <%= train.departuretime %>
+                                            </td>
+                                            <td>
+                                                <%= train.arrivaltime %>
+                                            </td>
+                                            <td>
+                                                <%= train.traintype %>
+                                            </td>
+                                            <td>
+                                                <%= train.trainprice %>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                            <% } else { %>
+                                <p>Nincs még egyetlen vonat sem az adatbázisban.</p>
+                                <% } %>
+    </body>

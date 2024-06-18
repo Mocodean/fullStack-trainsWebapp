@@ -1,0 +1,74 @@
+#game {
+  width: 100%;
+  height: 1000px;
+  background-color: blanchedalmond;
+}
+
+#playerInfo > p {
+  background-color: aqua;
+  width: 30%;
+  border: 2px;
+  border-style: dashed;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 2%;
+  float: left;
+}
+
+#cards {
+  width: 90%;
+  height: 50%;
+  margin-top: 25%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: blue;
+  display: flex;
+}
+
+#card1 {
+  width: 25%;
+  height: 80%;
+  background-image: url(images/manchester_city.png);
+  padding-top: 5%;
+  background-size: 100% 80%;
+  background-color: rgb(219, 129, 11);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 2%;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+#card2 {
+  width: 25%;
+  height: 80%;
+  background-image: url(images/liverpool.png);
+  padding-top: 5%;
+  background-size: 100% 80%;
+  background-color: rgb(219, 129, 11);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 2%;
+  margin-right: 5%;
+}
+
+#card3 {
+  width: 25%;
+  height: 80%;
+  background-image: url(images/tottenham.png);
+  padding-top: 5%;
+  background-size: 100% 80%;
+  background-color: rgb(219, 129, 11);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 2%;
+  margin-right: 5%;
+}
+
+#vege {
+  width: 30%;
+  height: 30px;
+  margin-left: 60%;
+  margin-top: 50px;
+}

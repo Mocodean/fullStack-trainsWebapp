@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Trains routes' }) %>
+
+    <body>
+        <section class="full-page-section pb-5">
+            <%- include('partials/navbar.ejs', {user: user}) %>
+
+                <% if (message) { %>
+                    <div class="alert alert-info alert-dismissible fade show " id="message" role="alert">
+                        <%= message %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                        <div class="container bg-body-tertiary rounded shadow p-4 my-4">
+                            <h1 class="text-center mb-4">Vonatok keresése</h1>
+                            <form action="/trains/searchtrain" method="post"
+                                enctype="application/x-www-form-urlencoded">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="from" class="form-label">From:</label>
+                                        <input type="text" class="form-control" id="from" name="from">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="to" class="form-label">To:</label>
+                                        <input type="text" class="form-control" id="to" name="to">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="minprice" class="form-label">Min price:</label>
+                                        <input type="number" class="form-control" id="minprice" name="minprice" min="0">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="maxprice" class="form-label">Max price:</label>
+                                        <input type="number" class="form-control" id="maxprice" name="maxprice" min="0">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="day" class="form-label">Day:</label>
+                                        <input type="date" class="form-control" id="day" name="day">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="type" class="form-label">Type:</label>
+                                        <select class="form-select" id="traintype" name="type">
+                                            <option value="" selected disabled>Válassz típust</option>
+                                            <option value="IC">IC</option>
+                                            <option value="IR">IR</option>
+                                            <option value="R">R</option>
+                                            <option value="RE">RE</option>
+                                            <option value="S">S</option>
+                                            <option value="TGV">TGV</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button id="start" type="submit" class="btn btn-primary w-100">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <div class="container bg-body-tertiary rounded shadow p-4 my-4">
+                            <h1 class="text-center mb-4">Trains</h1>
+                            <% if (trains.length) { %>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover text-center">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Train Id</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Day</th>
+                                                <th>Departuretime</th>
+                                                <th>Arrivaltime</th>
+                                                <th>Price</th>
+                                                <% if(user.rang && user.rang==='admin' ) { %>
+                                                    <th></th>
+                                                    <% } %>
+                                                        <% if(user.rang ) { %>
+                                                            <th></th>
+                                                            <% } %>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% trains.forEach(function(train) { %>
+                                                <tr>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.id %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.honnan %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.hova %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.day %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.departuretime %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.arrivaltime %>
+                                                    </td>
+                                                    <td class="details_b" id="<%= train.id %>">
+                                                        <%= train.trainprice %>
+                                                    </td>
+                                                    <% if(user.rang && user.rang==='admin' ) { %>
+                                                        <td id="<%= train.id %>">
+                                                            <a href="/trains/foglal/<%= train.id %>"
+                                                                class="btn btn-primary btn-sm">Foglalasok</a>
+                                                        </td>
+                                                        <% } %>
+                                                            <% if(user.rang ) { %>
+                                                                <td class="foglalni" id="<%= train.id %>">
+                                                                    <a href="/reservations/vonat/<%= train.id %>"
+                                                                        class="btn btn-primary btn-sm">Reserve</a>
+                                                                </td>
+                                                                <% } %>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center" id="show<%= train.id %>" colspan="8"
+                                                        style="display: none;"></td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                    <% } %>
+                                        <% if (oneTransferRoutes.length) { %>
+                                            <h2 class="text-center pt-4">One transfer routes</h2>
+                                            <table class="table table-striped table-hover text-center">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>First train ID</th>
+                                                        <th>Second train ID</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Day</th>
+                                                        <th>Total duration</th>
+                                                        <th>Transfer duration</th>
+                                                        <th>Total price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% oneTransferRoutes.forEach(function(train) { %>
+                                                        <tr>
+                                                            <td>
+                                                                <%= train.id1 %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.id2 %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.honnan %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.hova %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.nap %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.total_duration %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.transfer_duration %>
+                                                            </td>
+                                                            <td>
+                                                                <%= train.total_price %>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                </tbody>
+                                            </table>
+                                            <% } %>
+
+                                                <% if (twoTransferRoutes.length) { %>
+                                                    <h2 class="text-center pt-4">Two transfer routes</h2>
+                                                    <table
+                                                        class="table table-striped table-hover text-center justify-content-center">
+                                                        <thead
+                                                            class="thead-dark justify-content-center align-items-center">
+                                                            <tr>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    First
+                                                                    train ID</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Second
+                                                                    train ID</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Third
+                                                                    train ID</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    From
+                                                                </th>
+                                                                <th class="justify-content-center align-items-center">To
+                                                                </th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Day
+                                                                </th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Total
+                                                                    duration</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Transfer duration in first station</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Transfer duration in second station</th>
+                                                                <th class="justify-content-center align-items-center">
+                                                                    Total
+                                                                    price</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% twoTransferRoutes.forEach(function(train) { %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= train.id1 %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.id2 %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.id3 %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.honnan %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.hova %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.nap %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.total_duration %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.transfer_duration_1 %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.transfer_duration_2 %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= train.total_price %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }); %>
+                                                        </tbody>
+                                                    </table>
+                                                    <% } %>
+
+                                </div>
+                        </div>
+
+
+
+
+        </section>
+    </body>

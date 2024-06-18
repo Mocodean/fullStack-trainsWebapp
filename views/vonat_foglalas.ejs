@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Reszleges' }) %>
+
+    <body>
+        <section class="full-page-section pb-5">
+            <%- include('partials/navbar.ejs', { user: user }) %>
+                <% if (message) { %>
+                    <div class="alert alert-info alert-dismissible fade show mt-1" role="alert">
+                        <%= message %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+
+                        <div class="container bg-body-tertiary rounded shadow p-4 my-4">
+                            <h1 class="text-center mb-4">Adott vonat</h1>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Vonat száma</th>
+                                            <th>Indulási állomás</th>
+                                            <th>Érkezési állomás</th>
+                                            <th>Indulás napja</th>
+                                            <th>Indulás ideje</th>
+                                            <th>Érkezés ideje</th>
+                                            <th>Jegy ára</th>
+                                            <th>Típusa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <%= train.id %>
+                                            </td>
+                                            <td>
+                                                <%= train.honnan %>
+                                            </td>
+                                            <td>
+                                                <%= train.hova %>
+                                            </td>
+                                            <td>
+                                                <%= train.day %>
+                                            </td>
+                                            <td>
+                                                <%= train.departuretime %>
+                                            </td>
+                                            <td>
+                                                <%= train.arrivaltime %>
+                                            </td>
+                                            <td>
+                                                <%= train.trainprice %>
+                                            </td>
+                                            <td>
+                                                <%= train.traintype %>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="container bg-body-tertiary rounded shadow p-4 my-4 pb-5">
+                            <h1 class="text-center mb-4">Hozza tartozo foglalasok</h1>
+                            <% if (foglalasok.length) { %>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Foglalas szama</th>
+                                                <th>Utas id</th>
+                                                <th>Datum</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% foglalasok.forEach(function(foglalas) { %>
+                                                <tr id="<%= foglalas.id %>">
+                                                    <td>
+                                                        <%= foglalas.id %>
+                                                    </td>
+                                                    <td>
+                                                        <%= foglalas.userid %>
+                                                    </td>
+                                                    <td>
+                                                        <%= foglalas.date %>
+                                                    </td>
+                                                    <% if (user && user.userid===foglalas.userid || user.rang==='admin'
+                                                        ) { %>
+                                                        <td>
+                                                            <button class="btn btn-danger btn-sm delete_foglalas"
+                                                                id="<%= foglalas.id %>">Törlés</button>
+                                                        </td>
+                                                        <% } %>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p id="message" class="alert alert-info mt-3" style="display: none;"></p>
+                                <% } else { %>
+                                    <p class="text-center">Nincs még egyetlen foglalas sem az adatbázisban ehhez a
+                                        vonathoz.</p>
+                                    <% } %>
+                        </div>
+        </section>
+    </body>

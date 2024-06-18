@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="form.css">
+</head>
+
+<body>
+    <form action="/searchtrain" method="get" enctype="application/x-www-form-urlencoded">
+        <p>From: <input type="text" id="from" name="from" required></p>
+        <p>To: <input type="text" id="to" name="to" required></p>
+        <p>Min price:
+            <input type="number" id="minprice" name="minprice" required min="0">
+        </p>
+        <p>Max price:
+            <input type="number" id="maxprice" name="maxprice" required min="0">
+        </p>
+        <button id="start" type="submit">Search</button>
+    </form>
+</body>
+
+</html>

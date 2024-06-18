@@ -1,0 +1,154 @@
+body {
+    margin: 10px;
+    padding: 30px;
+    background-image: url('images/premier_league.png');
+    background-repeat: repeat-x; /* Csak az x tengely mentén ismétlődik */
+    /*  szöveggel együtt gördülő*/
+    background-attachment: fixed;
+    
+}
+
+
+p,
+em {
+    color: rgb(223, 210, 210);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    background-color: rgb(224, 172, 75);
+}
+
+/* Definiáljunk (és használjunk a HTML oldalon) két különböző stílusú főcímet (h1). Használjunk olyan
+szelektort, ami az elemtípus és az osztályra is megkötést tesz. */
+h1.cim1 {
+    color: rgb(130, 22, 22);
+    background-color: rgb(120, 224, 75);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1.cim2 {
+    background-color: skyblue;
+    color: darkblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+}
+
+.egyforma {
+    color: rgb(123, 99, 64);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+a.seged:visited {
+    color: rgb(102, 139, 34);
+    font-style: oblique;
+}
+
+a.seged:hover {
+    color: rgb(201, 26, 134);
+    font-style: italic;
+}
+
+a.seged:active {
+    color: rgb(230, 36, 36);
+    font-style: unset;
+}
+
+
+/* Adjuk meg (kontextussal megadott szelektort használva) egy h2 elemet közvetlenül követő p elem
+stílusát (szövegigazítás, méret). */
+
+h2 + p {
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Definiáljunk egy olyan div stílust, mely be van keretezve szaggatott vonallal. A szöveg legyen a keret
+közepén (a behúzás–padding–egyforma méretű legyen mindenütt). */
+
+div.fodiv {
+    border: 2px;
+    border-style: dashed;
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+
+/* Definiáljunk a táblázat esetén két különböző cella-stílust, melyben a szöveg igazítása más és más (az
+első oszlopban az első, a többiben a második legyen érvényes). */
+
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+td:first-child {
+    text-align: left;
+    color:aqua;
+}
+
+td:not(:first-child) {
+    text-align: right;
+    color: blueviolet;
+}
+
+/* Rajzoljunk „lépcsőt”, egymásra helyezett színes téglalapokból. A lépcsőfokok szöveget is tartalmazzanak. */
+
+.lepcsofok {
+    display: flex;
+    flex-direction: column-reverse; /* A flex container elemeit oszloponként, fordított sorrendben rendezzük el */
+}
+
+.fok {
+    height: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+
+.fok:nth-child(1) {
+    background-color: rgb(255, 0, 0);
+    width: 1000px;
+}
+
+.fok:nth-child(2) {
+    background-color: rgb(255, 255, 0);
+    width: 800px;
+}
+
+.fok:nth-child(3) {
+    background-color: rgb(0, 255, 0);
+    width: 600px;
+}
+
+.fok:nth-child(4) {
+    background-color: rgb(0, 255, 255);
+    width: 400px;
+}
+
+.fok:nth-child(5) {
+    background-color: rgb(0, 0, 255);
+    width: 200px;
+}
+
+/* Media query segítségével oldjuk meg, hogy amennyiben a képernyő szélessége kisebb mint 600px, a
+téglalapok szélessége váljon egyformává, s töltsék ki a képernyő teljes szélességét. */
+
+@media screen and (max-width: 600px) {
+    .fok:nth-child(1), .fok:nth-child(2), .fok:nth-child(3), .fok:nth-child(4), .fok:nth-child(5){
+        width: 100%;
+        color: black;
+    }
+}
+
+
+
+

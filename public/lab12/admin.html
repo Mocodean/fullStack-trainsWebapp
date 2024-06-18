@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="form.css">
+</head>
+
+<body>
+    <form action="/trains/newtrain" method="post" enctype="application/x-www-form-urlencoded">
+        <p>From: <input type="text" id="from" name="from" required></p>
+        <p>To: <input type="text" id="to" name="to" required></p>
+        <p>Day of the week:
+            <select id="day" name="day">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </p>
+        <p>Departure time:
+            <input type="time" id="departuretime" name="departuretime" required>
+        </p>
+        <p>Arrival time:
+            <input type="time" id="arrivaltime" name="arrivaltime" required>
+        </p>
+        <p>Train type:
+            <select id="traintype" name="traintype">
+                <option value="IC">IC</option>
+                <option value="IR">IR</option>
+                <option value="R">R</option>
+                <option value="RE">RE</option>
+                <option value="S">S</option>
+                <option value="TGV">TGV</option>
+            </select>
+        </p>
+        <p>Train price: <input type="number" id="trainprice" name="trainprice" required min="0"></p>
+        <button id="start" type="submit">Add</button>
+    </form>
+</body>
+
+</html>

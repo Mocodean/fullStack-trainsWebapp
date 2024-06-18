@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+<%- include('partials/head.ejs', { title: 'Foglalások' }) %>
+
+    <body>
+        <%- include('partials/navbar.ejs',{user}) %>
+            <div class="container bg-body-tertiary rounded shadow p-4 my-4">
+                <h1 class="text-center mb-4">Foglalások</h1>
+                <% if (message) { %>
+                    <div class="alert alert-info alert-dismissible fade show mt-1" role="alert">
+                        <%= message %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                        <% if (foglalasok.length) { %>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Foglalás száma</th>
+                                            <th>Vonat száma</th>
+                                            <th>Utas id</th>
+                                            <th>Indulás dátuma</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% foglalasok.forEach(function(foglalas) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= foglalas.id %>
+                                                </td>
+                                                <td>
+                                                    <%= foglalas.trainid %>
+                                                </td>
+                                                <td>
+                                                    <%= foglalas.userid %>
+                                                </td>
+                                                <td>
+                                                    <%= new Date(foglalas.date).toLocaleDateString('hu-HU') %>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <% } else { %>
+                                <p class="text-center">Nincs még egyetlen foglalás sem az adatbázisban.</p>
+                                <% } %>
+
+                                    <h2 class="text-center mt-5">Új Foglalás</h2>
+                                    <form action="/reservations/newreservation" method="post"
+                                        enctype="application/x-www-form-urlencoded" class="mt-4">
+                                        <div class="mb-3">
+                                            <label for="trainid" class="form-label">Keresett vonat:</label>
+                                            <input type="text" class="form-control" id="trainid" name="trainid"
+                                                value="<%= trainid %>" readonly>
+                                        </div>
+                                        <input type="hidden" id="username" name="name" value="<%=user.username %>">
+                                        <div class="mb-3">
+                                            <label for="date" class="form-label">Indulás dátuma:</label>
+                                            <input type="date" class="form-control" id="date" name="date" required>
+                                        </div>
+                                        <button id="start" type="submit" class="btn btn-primary w-100">Foglalás</button>
+                                    </form>
+            </div>
+    </body>

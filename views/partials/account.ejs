@@ -1,0 +1,9 @@
+<div>
+    <% if (user.username) { %>
+        <p>Welcome, <%= user.username %>!</p>
+        <p><a href="/logout">Logout</a></p>
+        <% } else { %>
+            <p>You are not logged in.</p>
+            <p><a href="/login">Log in</a></p>
+            <% } %>
+</div>

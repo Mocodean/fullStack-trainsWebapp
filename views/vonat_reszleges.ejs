@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Vonatok' }) %>
+
+    <body>
+        <section class="vh-100 justify-content-center align-items-center" style="background-color: #ca5050;">
+
+            <%- include('partials/navbar.ejs', {user: user}) %>
+                <h1> Vonatok </h1>
+                <% if (trains.length) { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Vonat száma </th>
+                                <th> Indulási állomás </th>
+                                <th> Érkezési állomás </th>
+                                <th> Indulás napja </th>
+                                <th> Indulás ideje </th>
+                                <th> Érkezés ideje </th>
+                                <th> Jegy ára </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% trains.forEach(function(train) { %>
+                                <tr>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.id %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.honnan %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.hova %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.day %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.departuretime %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.arrivaltime %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <%= train.trainprice %>
+                                    </td>
+                                    <td class="details_b" id="<%= train.id %>">
+                                        <a href="/trains/foglal/<%= train.id %>"> Foglalasok </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="show<%= train.id %>" colspan="8" style="display: none;"></td>
+                                </tr>
+
+                                <% }); %>
+                        </tbody>
+                    </table>
+
+                    <% } else { %>
+                        <p> Nincs még egyetlen vonat sem az adatbázisban. </p>
+                        <% } %>
+        </section>
+    </body>

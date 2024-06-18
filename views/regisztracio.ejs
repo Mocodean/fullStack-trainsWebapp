@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Regisztracio' }) %>
+
+    <body>
+        <section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #3d818a;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <a href="/" class="btn btn-secondary mb-4">Continue as a guest</a>
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h1 class="card-title text-center">Registracion</h1>
+                                <div>
+                                    <form action="/regisztracio/form" method="POST"
+                                        enctype="application/x-www-form-urlencoded">
+                                        <div class="form-group">
+                                            <label for="username">Username:</label>
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password:</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passwordAgain">Password again:</label>
+                                            <input type="password" class="form-control" id="passwordAgain"
+                                                name="passwordAgain" required>
+                                        </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-4">Sign up</button>
+                                </form>
+                                <p class="mt-3 text-center">
+                                    Already have an account? <a href="/login">Sign In</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+
+</html>

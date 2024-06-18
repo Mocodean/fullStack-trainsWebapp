@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<%- include('partials/head.ejs', { title: 'Foglalasok userenkent' }) %>
+
+    <body>
+        <%- include('partials/navbar.ejs', { user: user }) %>
+
+            <% if (message) { %>
+                <div class="alert alert-info alert-dismissible fade show mt-1" role="alert" id="message">
+                    <%= message %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+
+                    <div class="container bg-body-tertiary rounded shadow p-4 my-4">
+                        <h1 class="text-center mb-4">Foglalások</h1>
+                        <% if (foglalasok.length) { %>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Foglalás száma</th>
+                                            <% if (user.rang==='admin' ) { %>
+                                                <th>Utas id</th>
+                                                <% } %>
+                                                    <th>Vonat száma</th>
+                                                    <th>Datum</th>
+                                                    <th>Módosítás</th>
+                                                    <th>Törlés</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% foglalasok.forEach(function(foglalas) { %>
+                                            <tr id="<%= foglalas.id %>">
+                                                <td>
+                                                    <%= foglalas.id %>
+                                                </td>
+                                                <% if (user.rang==='admin' ) { %>
+                                                    <td>
+                                                        <%= foglalas.userid %>
+                                                    </td>
+                                                    <% } %>
+                                                        <td>
+                                                            <%= foglalas.trainid %>
+                                                        </td>
+                                                        <td id="modositot<%= foglalas.id %>">
+                                                            <%= new Date(foglalas.date).toLocaleDateString('hu-HU') %>
+                                                        </td>
+                                                        <td>
+                                                            <button class="mutat btn btn-warning btn-sm"
+                                                                id="<%= foglalas.id %>">Módosítás</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-danger btn-sm torolfoglalasuser"
+                                                                id="<%= foglalas.id %>">Törlés</button>
+                                                        </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="12" id="formdatum<%= foglalas.id %>" style="display: none;"">
+                                                    <form>
+                                                    <div class=" col-md-12 mb-3">
+                                                    <label for="date-<%= foglalas.id %>" class="form-label">Date</label>
+                                                    <input type="date" class="form-control" value="2010-10-18"
+                                                        id="datumfelepit<%= foglalas.id %>" name="date" required>
+                            </div>
+
+                            </form>
+                            <button id="<%= foglalas.id %>" class="btn btn-primary w-100 menteees">Save</button>
+
+                            </td>
+                            </tr>
+                            <% }); %>
+                                </tbody>
+                                </table>
+                    </div>
+                    <% } else { %>
+                        <p class="text-center">Nincs még egyetlen foglalás sem az adatbázisban.</p>
+                        <% } %>
+                            </div>
+    </body>
